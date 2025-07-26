@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сургут - сердце Югры</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c5e92;
+            --primary-dark: #1a3d61;
+            --secondary: #d4a017;
+            --light: #f5f7fa;
+            --dark: #1e2a38;
+            --gray: #6c757d;
+            --transition: all 0.4s ease;
+            --accent-1: #2c5e92;
+            --accent-2: #d4a017;
+            --accent-3: #8e44ad;
+            --accent-4: #27ae60;
+            --accent-5: #1a5276;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title.accent-1 h2 {
+            color: var(--accent-1);
+        }
+        
+        .section-title.accent-2 h2 {
+            color: var(--accent-2);
+        }
+        
+        .section-title.accent-3 h2 {
+            color: var(--accent-3);
+        }
+        
+        .section-title.accent-4 h2 {
+            color: var(--accent-4);
+        }
+        
+        .section-title.accent-5 h2 {
+            color: var(--accent-5);
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            border-radius: 2px;
+        }
+        
+        .section-title.accent-1 h2:after {
+            background: var(--accent-1);
+        }
+        
+        .section-title.accent-2 h2:after {
+            background: var(--accent-2);
+        }
+        
+        .section-title.accent-3 h2:after {
+            background: var(--accent-3);
+        }
+        
+        .section-title.accent-4 h2:after {
+            background: var(--accent-4);
+        }
+        
+        .section-title.accent-5 h2:after {
+            background: var(--accent-5);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .city-symbols {
+            display: flex;
+            gap: 10px;
+        }
+
+        .symbol {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .symbol:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .symbol i {
+            font-size: 1.2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+
+        nav a:hover:after,
+        nav a.active:after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-top: 70px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-down i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            height: 400px;
+            background: url('images/about-city.jpg') center/cover;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat-box {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .stat-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-box i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .stat-box h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+
+        /* Geography Section */
+        .geography {
+            background-color: #f0f4f8;
+        }
+
+        .map-container {
+            height: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* History Section */
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background-color: var(--accent-3);
+            margin-left: -2px;
+            z-index: 0;
+        }
+
+        .timeline {
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline-item {
+            padding: 20px 40px;
+            position: relative;
+            width: 50%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            top: 30px;
+            transform: rotate(45deg);
+            z-index: -1;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            left: -10px;
+            right: auto;
+        }
+
+        .timeline-year {
+            background-color: var(--accent-3);
+            color: white;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 20px;
+            z-index: 2;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 0 0 4px white, 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-year {
+            right: -40px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-year {
+            left: -40px;
+        }
+
+        .foundation {
+            background-color: var(--accent-3);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            margin: 60px 0;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .foundation h2 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .foundation p {
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+        }
+
+        /* Population Section */
+        .population {
+            background: linear-gradient(135deg, var(--accent-4) 0%, #1e8449 100%);
+            color: white;
+        }
+
+        .population-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .population-stat {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .population-stat:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .population-stat h3 {
+            font-size: 3rem;
+            color: var(--secondary);
+        }
+
+        .population-stat p {
+            font-size: 1.1rem;
+        }
+
+        .population-chart {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .chart-container {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .chart-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        .chart-image {
+            width: 100%;
+            height: 300px;
+            background: url('images/population-chart.jpg') center/contain no-repeat;
+            border-radius: 8px;
+        }
+
+        .demographics-box {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .demographics-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .demographics-header i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+        }
+
+        .demographics-header h3 {
+            font-size: 1.8rem;
+        }
+
+        .demographics-box p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        /* Transport Section */
+        .transport-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .transport-item {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .transport-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .transport-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+
+        .transport-item:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .transport-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .airport-item {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #2c5e92 0%, #1a3d61 100%);
+            color: white;
+        }
+
+        .airport-item .transport-icon {
+            background: white;
+            color: var(--primary);
+        }
+
+        .airport-item h3 {
+            color: white;
+        }
+
+        /* Culture Section */
+        .culture {
+            background-color: #f0f4f8;
+        }
+
+        .attractions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .attraction-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .attraction-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .attraction-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .attraction-content {
+            padding: 20px;
+        }
+
+        .attraction-content h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .location-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .location-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-info {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .contact-list {
+            list-style: none;
+        }
+
+        .contact-list li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .contact-list i {
+            position: absolute;
+            left: 0;
+            top: 5px;
+            color: var(--secondary);
+        }
+
+        .contact-list a {
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-list a:hover {
+            color: var(--primary);
+        }
+
+        .emergency-contact {
+            background: #ffecec;
+            border-left: 4px solid #e74c3c;
+            padding: 8px 12px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        /* Tourism Section */
+        .tourism {
+            background: linear-gradient(135deg, var(--accent-5) 0%, #154360 100%);
+            color: white;
+            padding: 60px 0;
+        }
+
+        .tourism-options {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tourism-option {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            width: 200px;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+
+        .tourism-option:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .tourism-option i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .tourism-option.combined {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--secondary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                width: 100%;
+            }
+            
+            .timeline-line {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-year,
+            .timeline-item:nth-child(even) .timeline-year {
+                left: 10px;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content::after,
+            .timeline-item:nth-child(even) .timeline-content::after {
+                left: -10px;
+                right: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .logo {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            nav {
+                width: 100%;
+                margin-top: 15px;
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .tourism-option {
+                width: 150px;
+                padding: 20px;
+            }
+            
+            .population-chart {
+                flex-direction: column;
+            }
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--dark);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        .cookie-banner.show {
+            transform: translateY(0);
+        }
+
+        .cookie-banner p {
+            margin-right: 20px;
+            font-size: 0.9rem;
+        }
+
+        .cookie-btn {
+            background: var(--secondary);
+            color: var(--dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .cookie-btn:hover {
+            background: #e6b412;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <h1>Сургут</h1>
+                <div class="city-symbols">
+                    <div class="symbol">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <div class="symbol">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul>
+                    <li><a href="#about" class="active">О городе</a></li>
+                    <li><a href="#geography">География</a></li>
+                    <li><a href="#history">История</a></li>
+                    <li><a href="#population">Население</a></li>
+                    <li><a href="#transport">Транспорт</a></li>
+                    <li><a href="#culture">Культура</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Сургут - Энергетическое сердце России</h1>
+                <p>Крупнейший город Ханты-Мансийского автономного округа - Югры, важнейший экономический и культурный центр Западной Сибири.</p>
+            </div>
+        </div>
+        <div class="scroll-down">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-title accent-1">
+                <h2>О городе</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Сургут - один из старейших сибирских городов, основанный в 1594 году по указу царя Фёдора Иоанновича. Город расположен на правом берегу реки Оби и является крупнейшим городом Ханты-Мансийского автономного округа.</p>
+                    <p>Современный Сургут - это энергетическая столица России, где добывается значительная часть российской нефти и газа. Город отличается высоким уровнем жизни, развитой инфраструктурой и динамичной экономикой.</p>
+                    <p>Сургут является важным транспортным узлом Западной Сибири, а также культурным и образовательным центром региона.</p>
+                </div>
+                <div class="about-image"></div>
+            </div>
+            <div class="stats">
+                <div class="stat-box">
+                    <i class="fas fa-city"></i>
+                    <h3>4-й</h3>
+                    <p>крупнейший город Уральского федерального округа</p>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-oil-well"></i>
+                    <h3>60%</h3>
+                    <p>нефти России добывается в Югре</p>
+                </div>
+                <div class="stat-box">
+                    <i class="fas fa-bridge"></i>
+                    <h3>2</h3>
+                    <p>автомобильных моста через Обь</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Geography Section -->
+    <section id="geography" class="geography">
+        <div class="container">
+            <div class="section-title accent-2">
+                <h2>Географическое положение</h2>
+            </div>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d321050.12031217376!2d73.17822697633852!3d61.25403244727326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4373976a631803a5%3A0x6263b340c23e2c2b!2z0KHRg9GA0LPQsCwg0KXQsNC90YLRiy3QnNCw0L3RgdC40LnRgdC60LjQuSDQsNCy0YLQvtC90L7QvNC90YvQuSDQvtC60YDRg9Cz!5e0!3m2!1sru!2sru!4v1689000000000!5m2!1sru!2sru" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="geography-info" style="margin-top: 30px; text-align: center;">
+                <p>Сургут расположен в Западной Сибири, на правом берегу реки Оби. Географические координаты: 61°15′ с. ш. 73°26′ в. д.</p>
+                <p>Город находится в зоне средней тайги, в равнинной местности с многочисленными реками, озерами и болотами.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="history">
+        <div class="container">
+            <div class="section-title accent-3">
+                <h2>История города</h2>
+            </div>
+            
+            <div class="foundation">
+                <h2>1594</h2>
+                <p>Основание города Сургута по указу царя Фёдора Иоанновича для укрепления восточных границ Русского государства</p>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">1596</div>
+                        <div class="timeline-content">
+                            <h3>Первая деревянная крепость</h3>
+                            <p>Построена первая деревянная крепость, ставшая опорным пунктом для дальнейшего освоения Сибири.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1782</div>
+                        <div class="timeline-content">
+                            <h3>Статус уездного города</h3>
+                            <p>Сургут получает статус уездного города Тобольского наместничества.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1926</div>
+                        <div class="timeline-content">
+                            <h3>Преобразование в село</h3>
+                            <p>В связи с малочисленностью населения Сургут преобразован в село.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1965</div>
+                        <div class="timeline-content">
+                            <h3>Открытие нефтяных месторождений</h3>
+                            <p>Открытие первых крупных нефтяных месторождений положило начало новому этапу развития города.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1965</div>
+                        <div class="timeline-content">
+                            <h3>Возвращение статуса города</h3>
+                            <p>Сургут вновь получает статус города окружного подчинения.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">1975</div>
+                        <div class="timeline-content">
+                            <h3>Строительство ГРЭС</h3>
+                            <p>Начато строительство Сургутской ГРЭС-1, одной из крупнейших тепловых электростанций в мире.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2000</div>
+                        <div class="timeline-content">
+                            <h3>Открытие Югорского моста</h3>
+                            <p>Введен в эксплуатацию Югорский мост - самый длинный в Сибири вантовый мост через реку Обь.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Population Section -->
+    <section id="population" class="population">
+        <div class="container">
+            <div class="section-title accent-4">
+                <h2 style="color: #fff; font-size: 2.8rem;">Население</h2>
+            </div>
+            <div class="section-title accent-4">
+                <h2 style="color: #fff; font-size: 2.2rem; margin-top: -30px;">Статистика и демографические показатели</h2>
+            </div>
+            <div class="population-stats">
+                <div class="population-stat">
+                    <h3>395 900</h3>
+                    <p>человек (2023 г.)</p>
+                </div>
+                <div class="population-stat">
+                    <h3>373 940</h3>
+                    <p>человек (2018 г.)</p>
+                </div>
+                <div class="population-stat">
+                    <h3>306 675</h3>
+                    <p>человек (2002 г.)</p>
+                </div>
+                <div class="population-stat">
+                    <h3>247 823</h3>
+                    <p>человек (1989 г.)</p>
+                </div>
+            </div>
+            
+            <div class="population-chart">
+                <div class="chart-container">
+                    <div class="chart-title">Национальный состав населения</div>
+                    <div class="chart-image"></div>
+                </div>
+                
+                <div class="demographics-box">
+                    <div class="demographics-header">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Демографические особенности</h3>
+                    </div>
+                    <p>Сургут - один из немногих российских региональных городов, население которого продолжает расти. Средний возраст жителей - 33 года.</p>
+                    <p>Город отличается высокой долей трудоспособного населения (более 65%) и низким уровнем безработицы (менее 1%).</p>
+                    <p>За последние 10 лет население выросло на 22%, что связано с экономическим развитием региона и притоком молодых специалистов.</p>
+                    <p>В Сургуте высокий уровень рождаемости - 14,5 на 1000 человек, что выше среднего по России.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transport Section -->
+    <section id="transport" class="transport">
+        <div class="container">
+            <div class="section-title accent-5">
+                <h2>Транспорт</h2>
+            </div>
+            <div class="transport-items">
+                <div class="transport-item" onclick="window.open('https://ru.busti.me/surgut/', '_blank')">
+                    <div class="transport-icon">
+                        <i class="fas fa-bus"></i>
+                    </div>
+                    <h3>Автобусы</h3>
+                    <p>Развитая сеть городских и пригородных автобусных маршрутов. Более 30 маршрутов по городу.</p>
+                    <p style="color: var(--accent-1); margin-top: 10px; font-weight: 500;">Нажмите, чтобы посмотреть маршруты</p>
+                </div>
+                <div class="transport-item" onclick="window.open('https://taxi.yandex.ru/surgut/tariff/econom/', '_blank')">
+                    <div class="transport-icon">
+                        <i class="fas fa-taxi"></i>
+                    </div>
+                    <h3>Такси</h3>
+                    <p>Множество служб такси работают в городе круглосуточно. Средняя стоимость поездки - 150-300 рублей.</p>
+                    <p style="color: var(--accent-1); margin-top: 10px; font-weight: 500;">Нажмите, чтобы заказать такси</p>
+                </div>
+                <div class="transport-item" onclick="window.open('https://www.rzd.ru/ru/11705/page/2012302?id=226', '_blank')">
+                    <div class="transport-icon">
+                        <i class="fas fa-train"></i>
+                    </div>
+                    <h3>Железная дорога</h3>
+                    <p>Станция Сургут - крупный железнодорожный узел на линии Тюмень - Новый Уренгой.</p>
+                    <p style="color: var(--accent-1); margin-top: 10px; font-weight: 500;">Нажмите, чтобы посмотреть расписание</p>
+                </div>
+                <div class="transport-item airport-item" onclick="window.open('https://www.airport-surgut.ru/', '_blank')">
+                    <div class="transport-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3>Международный аэропорт Сургут</h3>
+                    <p>Один из крупнейших в Уральском федеральном округе. Регулярные рейсы в Москву, Санкт-Петербург, Сочи и другие города.</p>
+                    <p style="margin-top: 10px; font-weight: 500;">Нажмите, чтобы посмотреть расписание рейсов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section id="culture" class="culture">
+        <div class="container">
+            <div class="section-title accent-1">
+                <h2>Культура и достопримечательности</h2>
+            </div>
+            <div class="attractions">
+                <div class="attraction-card">
+                    <div class="attraction-image" style="background-image: url('images/big-ben.jpg');"></div>
+                    <div class="attraction-content">
+                        <h3>Сургутский Биг-Бен</h3>
+                        <p>Знаменитая часовая башня в центре города, ставшая одним из символов Сургута.</p>
+                        <a href="https://www.google.com/maps/search/Сургутский+Биг-Бен,+Сургут" class="location-btn" target="_blank">Посмотреть на карте</a>
+                    </div>
+                </div>
+                <div class="attraction-card">
+                    <div class="attraction-image" style="background-image: url('images/cultural-center.jpg');"></div>
+                    <div class="attraction-content">
+                        <h3>Историко-культурный центр</h3>
+                        <p>Музейный комплекс, рассказывающий об истории и культуре коренных народов Севера.</p>
+                        <a href="https://www.google.com/maps/search/Историко-культурный+центр+Старый+Сургут" class="location-btn" target="_blank">Посмотреть на карте</a>
+                    </div>
+                </div>
+                <div class="attraction-card">
+                    <div class="attraction-image" style="background-image: url('images/cathedral.jpg');"></div>
+                    <div class="attraction-content">
+                        <h3>Храм Преображения Господня</h3>
+                        <p>Главный православный храм города, построенный в 2002 году в византийском стиле.</p>
+                        <a href="https://www.google.com/maps/search/Храм+Преображения+Господня,+Сургут" class="location-btn" target="_blank">Посмотреть на карте</a>
+                    </div>
+                </div>
+                <div class="attraction-card">
+                    <div class="attraction-image" style="background-image: url('images/mosque.jpg');"></div>
+                    <div class="attraction-content">
+                        <h3>Сургутская соборная мечеть</h3>
+                        <p>Красивая мечеть с высоким минаретом, центр мусульманской общины города.</p>
+                        <a href="https://www.google.com/maps/search/Сургутская+соборная+мечеть" class="location-btn" target="_blank">Посмотреть на карте</a>
+                    </div>
+                </div>
+                <div class="attraction-card">
+                    <div class="attraction-image" style="background-image: url('images/museum.jpg');"></div>
+                    <div class="attraction-content">
+                        <h3>Художественный музей</h3>
+                        <p>Собрание произведений искусства местных и российских художников.</p>
+                        <a href="https://www.google.com/maps/search/Художественный+музей+Сургут" class="location-btn" target="_blank">Посмотреть на карте</a>
+                    </div>
+                </div>
+                <div class="attraction-card">
+                    <div class="attraction-image" style="background-image: url('images/bridge.jpg');"></div>
+                    <div class="attraction-content">
+                        <h3>Югорский мост</h3>
+                        <p>Самый длинный в Сибири вантовый мост через реку Обь длиной 2110 метров.</p>
+                        <a href="https://www.google.com/maps/search/Югорский+мост,+Сургут" class="location-btn" target="_blank">Посмотреть на карте</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-title accent-2">
+                <h2>Контакты</h2>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Администрация города</h3>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-map-marker-alt"></i> ул. Энергетиков, 22, Сургут, ХМАО-Югра, 628400</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+73462289898">+7 (3462) 28-98-98</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:admsurgut@admsurgut.ru">admsurgut@admsurgut.ru</a></li>
+                        <li><i class="fas fa-globe"></i> <a href="https://admsurgut.ru" target="_blank">admsurgut.ru</a></li>
+                    </ul>
+                </div>
+                <div class="contact-info">
+                    <h3>Справочные службы</h3>
+                    <ul class="contact-list">
+                        <li class="emergency-contact">
+                            <i class="fas fa-phone"></i> Служба спасения — 112
+                        </li>
+                        <li><i class="fas fa-taxi"></i> Такси: <a href="tel:+73462999000">+7 (3462) 999-000</a></li>
+                        <li><i class="fas fa-plane"></i> Аэропорт: <a href="tel:+73462234567">+7 (3462) 23-45-67</a></li>
+                        <li><i class="fas fa-train"></i> Ж/д вокзал: <a href="tel:+73462234568">+7 (3462) 23-45-68</a></li>
+                    </ul>
+                </div>
+                <div class="contact-info">
+                    <h3>Электронная приёмная</h3>
+                    <ul class="contact-list">
+                        <li><i class="fas fa-comments"></i> <a href="https://admsurgut.ru/reception" target="_blank">Обращения граждан</a></li>
+                        <li><i class="fas fa-file-alt"></i> <a href="https://admsurgut.ru/services" target="_blank">Госуслуги</a></li>
+                        <li><i class="fas fa-exclamation-circle"></i> <a href="https://admsurgut.ru/problems" target="_blank">Сообщить о проблеме</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tourism Section -->
+    <section class="tourism">
+        <div class="container">
+            <div class="section-title accent-5">
+                <h2>Для туристов</h2>
+            </div>
+            <div class="tourism-options">
+                <div class="tourism-option" onclick="window.open('https://www.google.com/maps/search/гостиницы+Сургут', '_blank')">
+                    <i class="fas fa-hotel"></i>
+                    <h4>Гостиницы</h4>
+                </div>
+                <div class="tourism-option combined" onclick="window.open('https://www.google.com/maps/search/кафе+и+рестораны+Сургут', '_blank')">
+                    <i class="fas fa-utensils"></i>
+                    <h4>Кафе и рестораны</h4>
+                </div>
+                <div class="tourism-option" onclick="window.open('https://www.google.com/maps/search/музеи+Сургут', '_blank')">
+                    <i class="fas fa-landmark"></i>
+                    <h4>Музеи</h4>
+                </div>
+                <div class="tourism-option" onclick="window.open('https://www.google.com/maps/search/парки+Сургут', '_blank')">
+                    <i class="fas fa-tree"></i>
+                    <h4>Парки</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Сургут</h3>
+                    <p>Энергетическая столица России, город с богатой историей и динамичным развитием.</p>
+                    <div class="social-links">
+                        <a href="https://vk.com/publicadmsurgut86" target="_blank"><i class="fab fa-vk"></i></a>
+                        <a href="https://t.me/admsurgut" target="_blank"><i class="fab fa-telegram"></i></a>
+                        <a href="https://ok.ru/group/58006967287815" target="_blank"><i class="fab fa-odnoklassniki"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Быстрые ссылки</h3>
+                    <ul class="footer-links">
+                        <li><a href="#about">О городе</a></li>
+                        <li><a href="#geography">География</a></li>
+                        <li><a href="#history">История</a></li>
+                        <li><a href="#population">Население</a></li>
+                        <li><a href="#transport">Транспорт</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Полезные ресурсы</h3>
+                    <ul class="footer-links">
+                        <li><a href="https://admsurgut.ru" target="_blank">Администрация города</a></li>
+                        <li><a href="https://surgutnews.ru" target="_blank">Новости Сургута</a></li>
+                        <li><a href="https://surgut.travel" target="_blank">Туризм в Сургуте</a></li>
+                        <li><a href="https://surgut.today" target="_blank">События и афиша</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Этот сайт был создан с любовью жителем Сургута для всех, кто хочет узнать больше о нашем замечательном городе.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner">
+        <p>Мы используем файлы cookie для улучшения работы сайта. Оставаясь на сайте, вы соглашаетесь с условиями их использования.</p>
+        <button class="cookie-btn">Принять</button>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('nav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+        
+        // Smooth Scrolling and Active Menu
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (scrollY >= (sectionTop - 100)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu after click
+                    if (nav.classList.contains('active')) {
+                        nav.classList.remove('active');
+                    }
+                }
+            });
+        });
+        
+        // Timeline Animation
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        
+        function checkTimeline() {
+            const triggerBottom = window.innerHeight * 0.8;
+            
+            timelineItems.forEach(item => {
+                const itemTop = item.getBoundingClientRect().top;
+                
+                if (itemTop < triggerBottom) {
+                    item.classList.add('visible');
+                }
+            });
+        }
+        
+        // Cookie Banner
+        const cookieBanner = document.querySelector('.cookie-banner');
+        const cookieBtn = document.querySelector('.cookie-btn');
+        
+        if (!localStorage.getItem('cookiesAccepted')) {
+            setTimeout(() => {
+                cookieBanner.classList.add('show');
+            }, 2000);
+        }
+        
+        cookieBtn.addEventListener('click', () => {
+            cookieBanner.classList.remove('show');
+            localStorage.setItem('cookiesAccepted', 'true');
+        });
+        
+        // Initialize
+        window.addEventListener('scroll', checkTimeline);
+        window.addEventListener('load', checkTimeline);
+    </script>
+</body>
+</html>
