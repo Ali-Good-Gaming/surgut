@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сургут - Жемчужина Сибири</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_ключ&lang=ru_RU" type="text/javascript"></script>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --secondary: #0ea5e9;
+            --accent: #e11d48;
+            --light: #f0f9ff;
+            --dark: #0c1e3e;
+            --gray: #64748b;
+            --transition: all 0.4s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            animation: fadeIn 1s ease;
+        }
+        
+        .logo-symbols {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .logo-symbols img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: var(--transition);
+            display: block;
+        }
+        
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        nav ul li a.active {
+            background: var(--accent);
+            box-shadow: 0 4px 8px rgba(225, 29, 72, 0.3);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(12, 30, 62, 0.7), rgba(12, 30, 62, 0.7)), url('https://images.unsplash.com/photo-1604542039667-1b2e0f1f3d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/45-degree-fabric-light.png');
+            opacity: 0.1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: slideUp 1s ease;
+        }
+        
+        .hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        /* Interactive Elements */
+        .interactive-elements {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .interactive-item {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .interactive-item:hover {
+            transform: translateY(-10px) scale(1.1);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .interactive-item i {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .section-header p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            color: var(--gray);
+        }
+        
+        /* Cards */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .card:hover .card-img img {
+            transform: scale(1.1);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        /* History Section */
+        .history-section {
+            background: linear-gradient(rgba(30, 58, 138, 0.9), rgba(30, 58, 138, 0.9)), url('https://images.unsplash.com/photo-1579033014033-1d35abf0d9b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+            color: white;
+        }
+        
+        .history-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+        
+        .history-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            margin-bottom: 40px;
+            position: relative;
+            width: calc(50% - 40px);
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+        }
+        
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            margin-right: auto;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            margin-left: auto;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid var(--secondary);
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -30px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -30px;
+        }
+        
+        .timeline-year {
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        /* Map Section */
+        #map {
+            height: 500px;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            height: 250px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 20px;
+            color: white;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover .overlay {
+            transform: translateY(0);
+        }
+        
+        /* Statistics */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-item i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+        
+        .stat-item .number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .contact-info {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 10px;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .contact-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .contact-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .contact-item i {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-right: 15px;
+            min-width: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 30px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--accent);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+        
+        /* Cookie Consent */
+        .cookie-consent {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 900px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translate(-50%, 100px);
+        }
+        
+        .cookie-consent.active {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        
+        .cookie-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .cookie-content i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-right: 20px;
+        }
+        
+        .cookie-text {
+            max-width: 80%;
+        }
+        
+        .cookie-text a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .cookie-text a:hover {
+            text-decoration: underline;
+        }
+        
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .cookie-buttons button {
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .cookie-accept {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 15px rgba(225, 29, 72, 0.3);
+        }
+        
+        .cookie-decline {
+            background: transparent;
+            color: var(--gray);
+            border: 2px solid var(--gray);
+        }
+        
+        .cookie-accept:hover {
+            background: #c81a3d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(225, 29, 72, 0.4);
+        }
+        
+        .cookie-decline:hover {
+            background: rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes countUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .timeline-item {
+                width: calc(100% - 40px);
+                margin: 0 auto 40px !important;
+                left: 0 !important;
+            }
+            
+            .timeline-item:nth-child(odd)::after,
+            .timeline-item:nth-child(even)::after {
+                left: -30px;
+                right: auto;
+            }
+            
+            .history-timeline::before {
+                left: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+            }
+            
+            .logo {
+                margin-bottom: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 5px;
+            }
+            
+            .interactive-elements {
+                flex-wrap: wrap;
+            }
+            
+            .cookie-consent {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .cookie-content {
+                flex-direction: column;
+                margin-bottom: 15px;
+            }
+            
+            .cookie-content i {
+                margin: 0 0 15px 0;
+            }
+            
+            .cookie-text {
+                max-width: 100%;
+            }
+            
+            .cookie-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-symbols">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgZmlsbD0iI2ZmZiIgc3Ryb2tlPSIjMWUzYTg4IiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNMzUgMzUgTDUwIDY1IEw2NSAzNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMWUzYTg4IiBzdHJva2Utd2lkdGg9IjUiLz48L3N2Zz4=" alt="Герб">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgNjYiPjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMjIiIGZpbGw9IiNmZmYiLz48cmVjdCB5PSIyMiIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIyMiIgZmlsbD0iIzBlYTllOSIvPjxyZWN0IHk9IjQ0IiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjIyIiBmaWxsPSIjZTExZDQ4Ii8+PC9zdmc+" alt="Флаг" style="height: 30px;">
+                </div>
+                <h1>СУР<span>ГУТ</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Главная</a></li>
+                    <li><a href="#geo">География</a></li>
+                    <li><a href="#history">История</a></li>
+                    <li><a href="#population">Население</a></li>
+                    <li><a href="#transport">Транспорт</a></li>
+                    <li><a href="#culture">Культура</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>Добро пожаловать в Сургут</h2>
+            <p>Энергетическое сердце Сибири, город с богатой историей и динамичным развитием. Сургут - это гармония природы и современных технологий, где северное сияние встречается с огнями мегаполиса.</p>
+            
+            <div class="interactive-elements">
+                <div class="interactive-item" data-target="geo">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <span>Карта</span>
+                </div>
+                <div class="interactive-item" data-target="history">
+                    <i class="fas fa-landmark"></i>
+                    <span>История</span>
+                </div>
+                <div class="interactive-item" data-target="culture">
+                    <i class="fas fa-theater-masks"></i>
+                    <span>Культура</span>
+                </div>
+                <div class="interactive-item" data-target="contact">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Контакты</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>О городе</h2>
+                <p>Сургут - один из старейших сибирских городов, основанный в 1594 году. Сегодня это крупнейший экономический центр Ханты-Мансийского автономного округа.</p>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1579033014033-1d35abf0d9b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Сургут">
+                    </div>
+                    <div class="card-content">
+                        <h3>Современный мегаполис</h3>
+                        <p>Сургут - крупнейший город Ханты-Мансийского автономного округа, важнейший центр нефтегазовой промышленности России.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1604542039667-1b2e0f1f3d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Река Обь">
+                    </div>
+                    <div class="card-content">
+                        <h3>Город на Оби</h3>
+                        <p>Расположен на правом берегу реки Оби, в 250 км к востоку от Ханты-Мансийска. Сургут - важный речной порт, связывающий северные регионы с центральной Россией.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1604542039667-1b2e0f1f3d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Экономика Сургута">
+                    </div>
+                    <div class="card-content">
+                        <h3>Экономический центр</h3>
+                        <p>Градообразующие предприятия - "Сургутнефтегаз", "Газпром трансгаз Сургут", Сургутские ГРЭС-1 и ГРЭС-2 - одни из крупнейших электростанций России.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Geography Section -->
+    <section id="geo" style="background-color: var(--light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Географическое положение</h2>
+                <p>Сургут расположен в Западной Сибири, на правом берегу реки Обь, в центре Ханты-Мансийского автономного округа - Югры.</p>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Координаты и рельеф</h3>
+                        <p>Географические координаты: 61°15′ с.ш. 73°26′ в.д. Город находится на Среднеобской низменности, в таёжной зоне. Рельеф преимущественно равнинный с небольшими возвышенностями.</p>
+                        <p>Высота над уровнем моря: 40 метров. Площадь города составляет 353,97 км².</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Климат</h3>
+                        <p>Климат Сургута - резко континентальный, с длинной холодной зимой и коротким тёплым летом.</p>
+                        <p>Средняя температура января: -22°C, июля: +17°C. Абсолютный минимум: -55°C, абсолютный максимум: +34°C.</p>
+                        <p>Годовое количество осадков: 550 мм. Снежный покров держится около 7 месяцев в году.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="map" style="margin-top: 50px;"></div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="history-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 style="color: white;">История города</h2>
+                <p style="color: rgba(255, 255, 255, 0.8);">Сургут имеет богатую историю, насчитывающую более четырёх столетий.</p>
+            </div>
+            <div class="history-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">1594</div>
+                    <h3>Основание Сургута</h3>
+                    <p>Город основан по наказу царя Фёдора Иоанновича. Первоначально это была небольшая крепость с гарнизоном казаков.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1596</div>
+                    <h3>Статус города</h3>
+                    <p>Сургут получает статус города и становится центром Сургутского уезда.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">XVII-XIX века</div>
+                    <h3>Центр торговли</h3>
+                    <p>Сургут становится важным торговым центром Сибири, местом сбора ясака (натурального налога) с коренных народов.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1926</div>
+                    <h3>Преобразование в село</h3>
+                    <p>В связи с малочисленностью населения Сургут преобразован в село.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1965</div>
+                    <h3>Нефтяная эра</h3>
+                    <p>Открытие крупных нефтяных месторождений положило начало бурному развитию города.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1965</div>
+                    <h3>Статус города</h3>
+                    <p>Сургут вновь получает статус города окружного подчинения.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">Настоящее время</div>
+                    <h3>Современный мегаполис</h3>
+                    <p>Сургут превратился в современный город с развитой инфраструктурой, культурной жизнью и высоким уровнем жизни.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Population Section -->
+    <section id="population" style="background-color: var(--light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Население</h2>
+                <p>Сургут - один из немногих российских региональных городов, где наблюдается постоянный рост населения.</p>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <div class="number">395,900</div>
+                    <p>Жителей (2023 г.)</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-chart-line"></i>
+                    <div class="number">+2.1%</div>
+                    <p>Ежегодный прирост (2020-2023)</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-venus-mars"></i>
+                    <div class="number">47% / 53%</div>
+                    <p>Мужчины / Женщины (2023)</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-baby"></i>
+                    <div class="number">32.5</div>
+                    <p>Средний возраст (2023)</p>
+                </div>
+            </div>
+            <div class="cards" style="margin-top: 50px;">
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Демографические особенности</h3>
+                        <p>Сургут отличается молодым населением - средний возраст жителей 32,5 года (2023). Более 60% населения имеет высшее или среднее специальное образование.</p>
+                        <p>Этнический состав (2020): русские (67%), украинцы (9%), татары (5%), башкиры (3%), азербайджанцы (2%), чуваши (1,5%), другие национальности.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <h3>Миграция и занятость</h3>
+                        <p>Ежегодно в Сургут прибывает около 15 тысяч новых жителей (2021-2023), преимущественно из других регионов России и стран СНГ.</p>
+                        <p>Основные сферы занятости (2023): нефтегазовая отрасль (42%), строительство (15%), транспорт и связь (12%), образование и здравоохранение (10%), торговля (8%).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transport Section -->
+    <section id="transport">
+        <div class="container">
+            <div class="section-header">
+                <h2>Транспорт</h2>
+                <p>Сургут обладает развитой транспортной инфраструктурой, связывающей город с другими регионами России.</p>
+            </div>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1615887023544-3a5dbc51f0a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Аэропорт Сургут">
+                    </div>
+                    <div class="card-content">
+                        <h3>Авиатранспорт</h3>
+                        <p>Международный аэропорт Сургут - один из крупнейших в Уральском федеральном округе. Ежегодный пассажиропоток - более 1,8 млн человек (2022).</p>
+                        <p>Основные направления: Москва, Санкт-Петербург, Сочи, Екатеринбург, Новый Уренгой, Тюмень, а также международные рейсы в Турцию, Таиланд, ОАЭ.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1588345681125-93e1f9f4c8b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Железная дорога">
+                    </div>
+                    <div class="card-content">
+                        <h3>Железная дорога</h3>
+                        <p>Сургут - крупный железнодорожный узел Свердловской железной дороги. Станция Сургут связывает город с Тюменью, Екатеринбургом, Москвой, Новосибирском.</p>
+                        <p>Действует фирменный поезд "Югра" Сургут-Москва. Также развито пригородное сообщение.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://images.unsplash.com/photo-1567608285960-6c0f4d0f3c20?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Речной порт">
+                    </div>
+                    <div class="card-content">
+                        <h3>Речной транспорт</h3>
+                        <p>Сургутский речной порт - важнейший транспортный узел на Оби. Обеспечивает грузовые и пассажирские перевозки в навигационный период (май-октябрь).</p>
+                        <p>Основные направления: Ханты-Мансийск, Салехард, Нижневартовск, Томск, Новосибирск.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section id="culture" style="background-color: var(--light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Культура и достопримечательности</h2>
+                <p>Сургут богат культурными объектыми и уникальными достопримечательностями.</p>
+            </div>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1579033014033-1d35abf0d9b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Историко-культурный центр">
+                    <div class="overlay">
+                        <h3>Историко-культурный центр</h3>
+                        <p>Уникальный комплекс, включающий краеведческий музей и парк истории</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1604542039667-1b2e0f1f3d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Мост через Обь">
+                    <div class="overlay">
+                        <h3>Вантовый мост через Обь</h3>
+                        <p>Один из самых длинных мостов в Сибири (2110 м)</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1604542039667-1b2e0f1f3d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Памятник основателям">
+                    <div class="overlay">
+                        <h3>Памятник основателям Сургута</h3>
+                        <p>Скульптурная композиция в историческом центре города</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1604542039667-1b2e0f1f3d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Храм Преображения">
+                    <div class="overlay">
+                        <h3>Храм Преображения Господня</h3>
+                        <p>Главный православный храм Сургута</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1604542039667-1b2e0f1f3d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Театр Сургут">
+                    <div class="overlay">
+                        <h3>Сургутский музыкально-драматический театр</h3>
+                        <p>Ведущая театральная площадка региона</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1604542039667-1b2e0f1f3d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Парк За Саймой">
+                    <div class="overlay">
+                        <h3>Парк "За Саймой"</h3>
+                        <p>Любимое место отдыха горожан с зонами для спорта и отдыха</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Контакты</h2>
+                <p>Свяжитесь с администрацией города или посетите наши офисы</p>
+            </div>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Администрация города</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <p><a href="https://yandex.ru/maps/?text=ул. Энгельса, 8, Сургут" target="_blank">ул. Энгельса, 8, Сургут, ХМАО-Югра, 628400</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <p><a href="tel:+73462525050">+7 (3462) 52-50-50</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <p><a href="mailto:admsurgut@admsurgut.ru">admsurgut@admsurgut.ru</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        <div>
+                            <p><a href="https://admsurgut.ru" target="_blank">https://admsurgut.ru</a></p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://vk.com/publicadmsurgut86" target="_blank"><i class="fab fa-vk"></i></a>
+                        <a href="https://ok.ru/group/58006967287815" target="_blank"><i class="fab fa-odnoklassniki"></i></a>
+                        <a href="https://t.me/admsurgut" target="_blank"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+                <div class="contact-info" style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);">
+                    <h3>Экстренные службы</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <p><a href="tel:112">Единая служба спасения: 112</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <p><a href="tel:102">Полиция: 102</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <p><a href="tel:103">Скорая помощь: 103</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <p><a href="tel:101">Пожарная служба: 101</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <p><a href="tel:009">Городская справочная: 009</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>О городе</h3>
+                    <ul>
+                        <li><a href="#about">Общая информация</a></li>
+                        <li><a href="#geo">География</a></li>
+                        <li><a href="#history">История</a></li>
+                        <li><a href="#population">Население</a></li>
+                        <li><a href="#transport">Транспорт</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Для туристов</h3>
+                    <ul>
+                        <li><a href="https://www.google.com/maps/search/гостиницы+сургута/" target="_blank">Гостиницы</a></li>
+                        <li><a href="https://www.google.com/maps/search/рестораны+сургута/" target="_blank">Рестораны и кафе</a></li>
+                        <li><a href="https://www.google.com/maps/search/экскурсии+сургута/" target="_blank">Экскурсии</a></li>
+                        <li><a href="https://yandex.ru/maps/org/surgut/1018448195" target="_blank">Карта города</a></li>
+                        <li><a href="https://admsurgut.ru/events" target="_blank">События</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Для жителей</h3>
+                    <ul>
+                        <li><a href="https://admsurgut.ru/news" target="_blank">Новости</a></li>
+                        <li><a href="https://admsurgut.ru/transport" target="_blank">Транспорт</a></li>
+                        <li><a href="https://admsurgut.ru/education" target="_blank">Образование</a></li>
+                        <li><a href="https://admsurgut.ru/health" target="_blank">Здравоохранение</a></li>
+                        <li><a href="https://admsurgut.ru/social" target="_blank">Социальная поддержка</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Бизнесу</h3>
+                    <ul>
+                        <li><a href="https://admsurgut.ru/investments" target="_blank">Инвестиции</a></li>
+                        <li><a href="https://admsurgut.ru/business-support" target="_blank">Поддержка бизнеса</a></li>
+                        <li><a href="https://admsurgut.ru/taxes" target="_blank">Налоги</a></li>
+                        <li><a href="https://admsurgut.ru/tenders" target="_blank">Тендеры</a></li>
+                        <li><a href="https://admsurgut.ru/economy" target="_blank">Экономика города</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Этот сайт был создан с любовью жителем Сургута для всех, кто хочет узнать больше о нашем замечательном городе.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie Consent -->
+    <div class="cookie-consent" id="cookieConsent">
+        <div class="cookie-content">
+            <i class="fas fa-cookie-bite"></i>
+            <div class="cookie-text">
+                <p>Мы используем файлы cookie для улучшения работы сайта и вашего удобства. Продолжая пользоваться сайтом, вы соглашаетесь с использованием cookie и обработкой ваших данных в соответствии с нашей <a href="privacy.html">Политикой конфиденциальности</a>.</p>
+            </div>
+        </div>
+        <div class="cookie-buttons">
+            <button class="cookie-accept" id="acceptCookies">Принять</button>
+            <button class="cookie-decline" id="declineCookies">Отклонить</button>
+        </div>
+    </div>
+
+    <script>
+        // Initialize map
+        function initMap() {
+            // Create map
+            const map = new ymaps.Map('map', {
+                center: [61.254035, 73.396221],
+                zoom: 12,
+                controls: ['zoomControl', 'fullscreenControl']
+            });
+            
+            // Add placemarks for important locations
+            const placemarks = [
+                {
+                    coords: [61.254035, 73.396221],
+                    title: 'Администрация Сургута',
+                    content: 'ул. Энгельса, 8'
+                },
+                {
+                    coords: [61.268009, 73.400658],
+                    title: 'Железнодорожный вокзал',
+                    content: 'Привокзальная площадь, 1'
+                },
+                {
+                    coords: [61.343357, 73.401199],
+                    title: 'Аэропорт Сургут',
+                    content: 'ул. Аэрофлотская, 50'
+                },
+                {
+                    coords: [61.242899, 73.427565],
+                    title: 'Речной вокзал',
+                    content: 'ул. Магистральная, 37'
+                },
+                {
+                    coords: [61.257381, 73.424677],
+                    title: 'Историко-культурный центр',
+                    content: 'ул. Просвещения, 7'
+                }
+            ];
+            
+            placemarks.forEach(place => {
+                const placemark = new ymaps.Placemark(place.coords, {
+                    hintContent: place.title,
+                    balloonContent: place.content
+                }, {
+                    iconLayout: 'default#image',
+                    iconImageHref: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+                    iconImageSize: [40, 40],
+                    iconImageOffset: [-20, -40]
+                });
+                
+                map.geoObjects.add(placemark);
+            });
+        }
+        
+        // Initialize map after API is loaded
+        ymaps.ready(initMap);
+        
+        // Cookie Consent
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookieConsent = document.getElementById('cookieConsent');
+            const acceptCookies = document.getElementById('acceptCookies');
+            const declineCookies = document.getElementById('declineCookies');
+            
+            // Check if user has already made a choice
+            if (!localStorage.getItem('cookieChoice')) {
+                setTimeout(() => {
+                    cookieConsent.classList.add('active');
+                }, 2000);
+            }
+            
+            // Handle accept
+            acceptCookies.addEventListener('click', function() {
+                localStorage.setItem('cookieChoice', 'accepted');
+                cookieConsent.classList.remove('active');
+                // Here you would set your cookies
+            });
+            
+            // Handle decline
+            declineCookies.addEventListener('click', function() {
+                localStorage.setItem('cookieChoice', 'declined');
+                cookieConsent.classList.remove('active');
+            });
+        });
+        
+        // Interactive elements
+        document.querySelectorAll('.interactive-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const target = this.getAttribute('data-target');
+                document.querySelector(`#${target}`).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Update active menu item
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                document.querySelector(`nav a[href="#${target}"]`).classList.add('active');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') return;
+                
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active menu item
+                    document.querySelectorAll('nav a').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Update active menu item on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const header = document.querySelector('header');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.15)';
+                header.style.background = 'linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%)';
+            } else {
+                header.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
+                header.style.background = 'linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%)';
+            }
+            
+            // Highlight active section in nav
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Card hover animations
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
+
+
